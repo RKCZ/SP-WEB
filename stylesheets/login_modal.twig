@@ -1,0 +1,28 @@
+<div class="w3-modal w3-animate-zoom" id="login_modal">
+    <div class="w3-modal-content">
+        <div class="w3-container w3-black w3-text-green">
+            <h4>Sign in form</h4>
+            <span onclick="document.getElementById('login_modal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <div class="w3-padding-large">
+                <form method="post" action="../index.php">
+                    <table>
+                        <tr><td>
+                                email
+                            </td>
+                            <td>
+                                <input type="email" required title="email"/>
+                            </td></tr>
+                        <tr>
+                            <td>
+                                password
+                            </td><td>
+                                <input type="password" required title="password"/>
+                                <input type="submit" />
+                            </td></tr>
+                    </table>
+                </form>
+                <footer>Don't have an account yet? <a href="#" onclick="document.getElementById('login_modal').style.display='none';document.getElementById('signup_modal').style.display='block'">Sign up here.</a> </footer>
+            </div>
+        </div>
+    </div>
+</div>

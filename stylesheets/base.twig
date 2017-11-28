@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ page_title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+{% include 'login_modal.twig' %}
+{% include 'signup_modal.twig' %}
+<body>
+<div class=" w3-container w3-text-green w3-black w3-large w3-center">{{ site_logo }}</div>
+<div class="w3-container w3-bar w3-black w3-display-container">
+    <nav>
+        <div class="w3-cell">
+            {% for item in top_nav %}
+                <a class="w3-bar-item w3-text-green w3-hover-green w3-hover-text-black w3-mobile" href="{{ item.href }}">{{ item.caption }}</a>
+            {% endfor %}
+        </div>
+        <div class="w3-display-right w3-cell">
+            <a class="w3-bar-item w3-text-green w3-hover-green w3-hover-text-black w3-btn w3-mobile" onclick="document.getElementById('login_modal').style.display='block'">Sign in</a>
+            <a class="w3-bar-item w3-text-green w3-hover-green w3-hover-text-black w3-btn w3-mobile" onclick="document.getElementById('signup_modal').style.display='block'">Sign up</a>
+        </div>
+    </nav>
+</div>
+<main class="w3-container w3-border-black">
+    <h1>{{ title }}</h1>
+    {{ content }}
+</main>
+<footer class="w3-container w3-black w3-center">
+    &lt;&gt; &copy; Roman Kalivoda 2017 &lt;/&gt;
+</footer>
+</body>
+</html>
