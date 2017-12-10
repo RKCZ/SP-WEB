@@ -1,14 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <title>{{ page_title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="controllers/control_handlers.js"></script>
 </head>
-{% include 'login_modal.twig' %}
-{% include 'signup_modal.twig' %}
 <body>
+<div class="w3-modal w3-animate-zoom" id="modal">{% include 'modal.twig' %}</div>
+{% if error_msg %}
+<div class="w3-panel w3-yellow w3-display-container">
+  <span onclick="this.parentElement.style.display='none'"
+        class="w3-button w3-yellow w3-large w3-display-topright">&times;</span>
+    <h3>Warning!</h3>
+    {{ error_msg }}
+</div>
+{% endif %}
 <div class=" w3-container w3-text-green w3-black w3-large w3-center">{{ site_logo }}</div>
 <div class="w3-container w3-bar w3-black w3-display-container">
     <nav>
@@ -17,17 +25,48 @@
                 <a class="w3-bar-item w3-text-green w3-hover-green w3-hover-text-black w3-mobile" href="{{ item.href }}">{{ item.caption }}</a>
             {% endfor %}
         </div>
+        {% if not login_info %}
         <div class="w3-display-right w3-cell">
-            <a class="w3-bar-item w3-text-green w3-hover-green w3-hover-text-black w3-btn w3-mobile" onclick="document.getElementById('login_modal').style.display='block'">Sign in</a>
-            <a class="w3-bar-item w3-text-green w3-hover-green w3-hover-text-black w3-btn w3-mobile" onclick="document.getElementById('signup_modal').style.display='block'">Sign up</a>
+            <button class="w3-bar-item w3-text-green w3-hover-green w3-hover-text-black w3-btn w3-mobile show-login">Sign in</button>
+            <button class="w3-bar-item w3-text-green w3-hover-green w3-hover-text-black w3-btn w3-mobile show-reg">Sign up</button>
         </div>
+        {% else %}
+            <div class="w3-display-right w3-cell">
+                <span class="w3-bar-item w3-text-green w3-mobile w3-padding-large">
+                    {% if login_info.role == 0 %}
+                        [user]
+                    {% elseif login_info.role == 1 %}
+                        [reviewer]
+                    {% else %}
+                        [admin]
+                    {% endif %}
+
+                {{ login_info.nickname }}
+                </span>
+                <form method="post" action="" class="w3-bar-item w3-mobile">
+                    <input type="hidden" name="action" value="logout">
+                    <button class="w3-text-green w3-hover-green w3-hover-text-black w3-btn" type="submit">Sign out</button>
+                </form>
+            </div>
+        {% endif %}
     </nav>
 </div>
 <main class="w3-container w3-border-black">
     <h1>{{ title }}</h1>
-    {{ content }}
+    {% for item in content %}
+        <div class="w3-card">
+            <h4><header>{{ item.title }}</header></h4>
+            {{ item.abstract }}
+            <footer>
+                author: {{ item.author }}<br>
+                status: {{ item.status }}
+            </footer>
+        </div>
+    {% else %}
+        Sorry, nothing to put here :(
+    {% endfor %}
 </main>
-<footer class="w3-container w3-black w3-center">
+<footer class="w3-container w3-black w3-text-green w3-center">
     &lt;&gt; &copy; Roman Kalivoda 2017 &lt;/&gt;
 </footer>
 </body>
