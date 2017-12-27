@@ -1,16 +1,15 @@
 <?php
-require_once 'C:/Users/roman/vendor/autoload.php';
+require_once 'C:/Users/kalivoda/vendor/autoload.php';
 require_once './controllers/user_control.class.php';
 require_once './controllers/content_loader.php';
 session_start();
 
 // deklarace promennych sablony
-$title = "Home";
-$page_title = "$title ## WEB#CON";
+$page_title = "WEB#CON";
 $login_info = array();
 $content = "Nothing to show here yet, please try again later...";
 $top_nav = array(
-    array('href' => '#NULL', 'caption' => 'link #1'),
+    array('class' => "home", 'caption' => "Home")
 );
 
 // obsluha odeslanych formularu
@@ -44,16 +43,16 @@ if($_POST) {
 if(isset($_SESSION['user'])) {
     // obsluha zobrazení pro přihlášené uživatele
     // prirad prislusne hodnoty promennym sablony
+    $title = "User Content";
     $login_info = array('role' => $_SESSION['user']->getUserRole(),'nickname' => $_SESSION['user']->getUserNick());
-    $title = "User activity";
-    $page_title = "$title ## WEB#CON";
+    $role = $_SESSION['user']->getUserRole();
+    array_push($top_nav, array('class' => "userContent", 'caption' => "User Content"));
 
 }
 
 $content = loadArticles();
 $vars = array('page_title' => $page_title,
     'site_logo' => 'WEB#CON',
-    'title' => $title,
     'top_nav' => $top_nav,
     'content' => $content,
     'error_msg' => isset($_SESSION['error'])? $_SESSION['error'] : "",
@@ -61,6 +60,6 @@ $vars = array('page_title' => $page_title,
 );
 $loader = new Twig_Loader_Filesystem('stylesheets');
 $twig = new Twig_Environment($loader, array());
-echo $twig->render('base.twig', $vars);
+echo $twig->render('main.twig', $vars);
 
 $_SESSION['error'] = "";

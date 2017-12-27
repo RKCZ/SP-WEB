@@ -1,0 +1,67 @@
+<script src="controllers/control_handlers.js"></script>
+
+<div>
+    <button class="w3-button w3-block w3-black w3-left-align toggle-btn">
+        &plus; Create new post
+    </button>
+    <div  class="w3-container" hidden>
+        Not implemented yet :((
+        {% include 'editor.twig' %}
+    </div>
+</div>
+
+<div>
+   <button class="w3-button w3-block w3-black w3-left-align accordion-btn">
+      Accepted
+   </button>
+   <div class="w3-container w3-hide">
+       {% for item in content.2 %}
+          <div class="w3-card">
+             <header><h4>{{ item.title }}</h4></header>
+              {{ item.abstract }}
+             <footer>
+                author: {{ item.author }}<br>
+                status: {{ item.status }}
+             </footer>
+          </div>
+       {% else %}
+          Sorry, nothing to put here :(
+       {% endfor %}
+   </div>
+
+   <button class="w3-button w3-block w3-black w3-left-align accordion-btn">
+      Pending
+   </button>
+   <div class="w3-container w3-hide">
+       {% for item in content.0 %}
+          <div class="w3-card">
+             <header><h4>{{ item.title }}</h4></header>
+              {{ item.abstract }}
+             <footer>
+                author: {{ item.author }}<br>
+                status: {{ item.status }}
+             </footer>
+          </div>
+       {% else %}
+          Sorry, nothing to put here :(
+       {% endfor %}
+   </div>
+
+   <button class="w3-button w3-block w3-black w3-left-align accordion-btn">
+      Rejected
+   </button>
+   <div class="w3-container w3-hide">
+       {% for item in content.1 %}
+          <div class="w3-card">
+             <header><h4>{{ item.title }}</h4></header>
+              {{ item.abstract }}
+             <footer>
+                author: {{ item.author }}<br>
+                status: {{ item.status }}
+             </footer>
+          </div>
+       {% else %}
+          Sorry, nothing to put here :(
+       {% endfor %}
+   </div>
+</div>

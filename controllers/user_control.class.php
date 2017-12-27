@@ -92,7 +92,7 @@ class user_control {
     public function registerUser() {
         if(!$this->userExists($_POST["nickname"])) {
             db::insert('users', array('nickname' => $_POST['nickname'],'password' => sha1($_POST['password']),'email' => $_POST['email']));
-            return "";
+            return "Excellent, your account was created! You can log in now :-)";
         } else {
             return "this nickname is already in use!";
         }

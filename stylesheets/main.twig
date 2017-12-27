@@ -1,0 +1,31 @@
+{% include 'top.twig' %}
+
+<main class="w3-border-black">
+    <div id="home">
+        <h3>home</h3>
+        {% for item in content|last %}
+            <div class="w3-card">
+                <header><h4>{{ item.title }}</h4></header>
+                {{ item.abstract }}
+                <footer>
+                    author: {{ item.author }}<br>
+                    status: {{ item.status }}
+                </footer>
+            </div>
+        {% endfor %}
+    </div>
+    <div id="userContent" hidden>
+        {% if login_info %}
+            <h3>user content</h3>
+            {% if login_info.role == 0 %}
+                {% include 'userView.twig' %}
+            {% elseif login_info.role == 1 %}
+                {% include 'reviewerView.twig' %}
+            {% else %}
+                {% include 'adminView.twig' %}
+            {% endif %}
+        {% endif %}
+    </div>
+</main>
+
+{% include 'bottom.twig' %}
