@@ -31,7 +31,7 @@
     </div>
     <div id="edit">
         <h4>Edit article</h4>
-        <form class="validate" method="post" action="" enctype="multipart/form-data">
+        <form class="validate-edit" method="post" action="" enctype="multipart/form-data">
             <fieldset class="w3-light-gray">
                 <input type="hidden" name="action" value="postEdit">
                 <input class="articleId" type="hidden" name="article" value="">
@@ -43,7 +43,7 @@
     </div>
     <div id="create">
         <h4>Create article</h4>
-        <form class="validate" method="post" action="" enctype="multipart/form-data">
+        <form class="validate-create" method="post" action="" enctype="multipart/form-data">
             <fieldset class="w3-light-gray">
                 <input type="hidden" name="action" value="postCreate">
                 <div class="editor-border"><textarea required cols="60" rows="10" id="editor_create" title="abstract" placeholder="Write abstract about your post" name="abstract"></textarea></div>
@@ -119,8 +119,16 @@
     </div>
 </div>
 <script>
-    $('form[class="validate"]').submit( function(e) {
+    $('form[class="validate-create"]').submit( function(e) {
         var message = CKEDITOR.instances['editor_create'].getData().replace(/<[^>]*>/gim, '').replace(/\s&nbsp;\s/ig, ' ').replace(/\s*/gim, '');
+        if( message === "" && jQuery.trim(message).length === 0 ) {
+            $(".editor-border").css({'border': 'thin red solid'});
+            e.preventDefault();
+        }
+    });
+
+    $('form[class="validate-edit"]').submit( function(e) {
+        var message = CKEDITOR.instances['editor_edit'].getData().replace(/<[^>]*>/gim, '').replace(/\s&nbsp;\s/ig, ' ').replace(/\s*/gim, '');
         if( message === "" && jQuery.trim(message).length === 0 ) {
             $(".editor-border").css({'border': 'thin red solid'});
             e.preventDefault();
