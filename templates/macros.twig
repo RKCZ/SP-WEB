@@ -64,36 +64,38 @@
                     abstract&hellip;
                 </button>
                 <div style="word-wrap: break-word;" class="w3-container" hidden>{{ item.abstract|raw }}</div>
-                <table>
-                    <tr><td>
-                            artistic value:
-                        </td>
-                        <td>
-                            {% for i in 1..item.6|round %}
-                                &starf;
-                            {% endfor %}
-                        </td>
-                    </tr>
-                    <tr><td>
-                            grammar:
-                        </td>
-                        <td>
-                            {% for i in 1..item.7|round %}
-                                &starf;
-                            {% endfor %}
-                        </td>
-                    </tr>
-                    <tr><td>
-                            theme:
-                        </td>
-                        <td>
-                            {% for i in 1..item.8|round %}
-                                &starf;
-                            {% endfor %}
-                        </td>
-                    </tr>
-                    <tr><td>reviewed by: {{ item.5 }}</td></tr>
-                </table>
+                {% if item.1 != 1 and item.1 != 2 %}
+                    <table>
+                        <tr><td>
+                                artistic value:
+                            </td>
+                            <td>
+                                {% for i in 1..item.6|round %}
+                                    &starf;
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        <tr><td>
+                                grammar:
+                            </td>
+                            <td>
+                                {% for i in 1..item.7|round %}
+                                    &starf;
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        <tr><td>
+                                theme:
+                            </td>
+                            <td>
+                                {% for i in 1..item.8|round %}
+                                    &starf;
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        <tr><td>reviewed by: {{ item.5 }}</td></tr>
+                    </table>
+                {% endif %}
                 <div>author: {{ item.author_FK }}</div>
                 <footer class="w3-bar">
                     <a class="w3-bar-item w3-mobile w3-button w3-lime w3-hover-text-white " href="/uploads/{{ item.content }}">View PDF</a>
