@@ -1,0 +1,129 @@
+<div class="w3-container w3-modal-content w3-amber  w3-padding-small">
+    <span class="w3-button w3-lime w3-hover-text-white w3-display-topright hide-modal">&times;</span>
+    <div id="login">
+        <h4>Sign in form</h4>
+        <form method="post" action="">
+            <fieldset class="w3-light-gray">
+                <input type="hidden" name="action" value="login">
+                <table>
+                    <tr><td><input type="text" required title="nickname" name="nickname" placeholder="Nickname"/></td></tr>
+                    <tr><td><input type="password" required title="password" name="password" placeholder="Password"/></td></tr>
+                    <tr><td><input class="w3-right" type="submit" /></td></tr>
+                </table>
+            </fieldset>
+        </form>
+        <footer>Don't have an account yet? <a href="#" class="show-reg">Sign up here.</a> </footer>
+    </div>
+    <div id="registration">
+        <h4>Registration form</h4>
+        <form method="post" action="">
+            <fieldset class="w3-light-gray">
+                <input type="hidden" name="action" value="registration">
+                <table>
+                    <tr><td><input type="text" required title="nickname" name="nickname" placeholder="Nickname"/></td></tr>
+                    <tr><td><input type="email" required title="email" name="email" placeholder="Email"/></td></tr>
+                    <tr><td><input type="password" required title="password" name="password" placeholder="Password"/></td></tr>
+                    <tr><td><input class="w3-right" type="submit" /></td></tr>
+                </table>
+            </fieldset>
+        </form>
+        <footer>Already have an account? <a href="#" class="show-login">Log in here.</a> </footer>
+    </div>
+    <div id="edit">
+        <h4>Edit article</h4>
+        <form class="validate" method="post" action="" enctype="multipart/form-data">
+            <fieldset class="w3-light-gray">
+                <input type="hidden" name="action" value="postEdit">
+                <input class="articleId" type="hidden" name="article" value="">
+                <div class="editor-border"><textarea required cols="60" rows="10" id="editor_edit" title="abstract" placeholder="Write abstract about your post" name="abstract"></textarea></div>
+                <input name="content" type="file" accept="application/pdf, .pdf">
+                <input class="w3-right" type="submit">
+            </fieldset>
+        </form>
+    </div>
+    <div id="create">
+        <h4>Create article</h4>
+        <form class="validate" method="post" action="" enctype="multipart/form-data">
+            <fieldset class="w3-light-gray">
+                <input type="hidden" name="action" value="postCreate">
+                <div class="editor-border"><textarea required cols="60" rows="10" id="editor_create" title="abstract" placeholder="Write abstract about your post" name="abstract"></textarea></div>
+                <input name="content" type="file" accept="application/pdf, .pdf" required>
+                <input class="w3-right" type="submit">
+            </fieldset>
+        </form>
+    </div>
+    <div id="assign">
+        <h4>Assign reviewer</h4>
+        <form method="post" action="">
+            <fieldset class="w3-light-gray">
+                <input type="hidden" name="action" value="assign">
+                <input class="articleId" type="hidden" name="article" value="">
+                <select title="reviewer" name="user">
+                    {% for item in users.1 %}
+                        <option value="{{ item.users_id }}">{{ item.nickname }}</option>
+                    {% endfor %}
+                </select>
+                <input class="w3-right" type="submit">
+            </fieldset>
+        </form>
+    </div>
+    <div id="review">
+        <h4>Review article</h4>
+        <form method="post" action="">
+            <fieldset class="w3-light-gray">
+                <input type="hidden" name="action" value="review">
+                <input class="articleId" type="hidden" name="article" value="">
+                <div class="stars">
+                    <span>Grammar</span>
+                    <input class="star" id="grammar-5" type="radio" name="grammar" value="5" required/>
+                    <label class="star" for="grammar-5"></label>
+                    <input class="star" id="grammar-4" type="radio" name="grammar" value="4"/>
+                    <label class="star" for="grammar-4"></label>
+                    <input class="star" id="grammar-3" type="radio" name="grammar" value="3"/>
+                    <label class="star" for="grammar-3"></label>
+                    <input class="star" id="grammar-2" type="radio" name="grammar" value="2"/>
+                    <label class="star" for="grammar-2"></label>
+                    <input class="star" id="grammar-1" type="radio" name="grammar" value="1"/>
+                    <label class="star" for="grammar-1"></label>
+                </div>
+                <div class="stars">
+                    <span>Artistic value</span>
+                    <input class="star" id="art_value-5" type="radio" name="art_value" value="5" required/>
+                    <label class="star" for="art_value-5"></label>
+                    <input class="star" id="art_value-4" type="radio" name="art_value" value="4"/>
+                    <label class="star" for="art_value-4"></label>
+                    <input class="star " id="art_value-3" type="radio" name="art_value" value="3"/>
+                    <label class="star" for="art_value-3"></label>
+                    <input class="star" id="art_value-2" type="radio" name="art_value" value="2"/>
+                    <label class="star" for="art_value-2"></label>
+                    <input class="star" id="art_value-1" type="radio" name="art_value" value="1"/>
+                    <label class="star" for="art_value-1"></label>
+                </div>
+                <div class="stars">
+                    <span>Theme</span>
+                    <input class="star" id="theme-5" type="radio" name="theme" value="5" required/>
+                    <label class="star" for="theme-5"></label>
+                    <input class="star" id="theme-4" type="radio" name="theme" value="4"/>
+                    <label class="star" for="theme-4"></label>
+                    <input class="star" id="theme-3" type="radio" name="theme" value="3"/>
+                    <label class="star" for="theme-3"></label>
+                    <input class="star" id="theme-2" type="radio" name="theme" value="2"/>
+                    <label class="star" for="theme-2"></label>
+                    <input class="star" id="theme-1" type="radio" name="theme" value="1"/>
+                    <label class="star" for="theme-1"></label>
+                </div>
+                <span class="w3-text-red w3-small">*All fields are required</span>
+                <input class="w3-right" type="submit">
+            </fieldset>
+        </form>
+    </div>
+</div>
+<script>
+    $('form[class="validate"]').submit( function(e) {
+        var message = CKEDITOR.instances['editor_create'].getData().replace(/<[^>]*>/gim, '').replace(/\s&nbsp;\s/ig, ' ').replace(/\s*/gim, '');
+        if( message === "" && jQuery.trim(message).length === 0 ) {
+            $(".editor-border").css({'border': 'thin red solid'});
+            e.preventDefault();
+        }
+    });
+</script>

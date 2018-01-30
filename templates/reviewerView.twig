@@ -1,0 +1,17 @@
+{% import 'macros.twig' as macros %}
+
+<div>
+    <button class="w3-button w3-lime w3-hover-text-white w3-block  w3-left-align accordion-btn">
+        New assignments
+    </button>
+    <div class="w3-container w3-hide">
+        {{ macros.reviewer_articles(content.0) }}
+    </div>
+
+    <button class="w3-button w3-lime w3-hover-text-white w3-block  w3-left-align accordion-btn">
+        Editable assignments
+    </button>
+    <div class="w3-container w3-hide">
+        {{ macros.reviewer_articles(content.1) }}
+    </div>
+</div>

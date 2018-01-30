@@ -74,4 +74,9 @@ class db
         return $item_id;
     }
 
+    public static function updateRecord($query, $params) {
+        self::connect("localhost", "web", "root", "");
+        $ret = self::$connection->prepare($query);
+        $ret->execute($params);
+    }
 }

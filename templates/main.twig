@@ -1,0 +1,71 @@
+<main class="w3-light-gray">
+    <div id="home">
+        <h3>home</h3>
+        {% for item in content|last %}
+            <div class="w3-card w3-margin w3-white">
+                <button class="w3-button w3-lime w3-hover-text-white w3-block  w3-left-align toggle-btn">
+                    abstract&hellip;
+                </button>
+                <div style="word-wrap: break-word;" class="w3-container" hidden>{{ item.abstract|raw }}</div>
+                author: {{ item.author_FK }}
+                <footer class="w3-bar">
+                    <a class="w3-bar-item w3-mobile w3-button w3-lime w3-hover-text-white " href="/uploads/{{ item.content }}">View PDF</a>
+                </footer>
+            </div>
+        {% else %}
+            Sorry, nothing to put here :(
+        {% endfor %}
+    </div>
+    <div id="userContent" hidden>
+        {% if login_info %}
+            <h3>user content</h3>
+            {% if login_info.role == 0 %}
+                {% include 'userView.twig' %}
+            {% elseif login_info.role == 1 %}
+                {% include 'reviewerView.twig' %}
+            {% else %}
+                {% include 'adminView.twig' %}
+            {% endif %}
+        {% endif %}
+    </div>
+    <div id="users" hidden>
+        <h3>manage users</h3>
+        <button class="w3-button w3-lime w3-hover-text-white w3-block  w3-left-align accordion-btn">
+            Regular users
+        </button>
+        <div class="w3-container w3-hide">
+            {% for item in users.0 %}
+                <div class="w3-container w3-card w3-margin">
+                    {{ item.nickname }}
+                    <form method="post" action="" class="w3-right w3-mobile">
+                        <input type="hidden" name="action" value="change-role">
+                        <input type="hidden" name="user" value="{{ item.users_id }}">
+                        <input type="submit" name="promoteToReviewer" value="&uArr; promote" class="w3-button w3-lime w3-hover-text-white w3-mobile"/>
+                        <input type="submit" name="deleteUser" value="&cross; delete" class="w3-button w3-lime w3-hover-text-white w3-text-red w3-mobile"/>
+                    </form>
+                </div>
+            {% else %}
+                Sorry, nothing to put here :(
+            {% endfor %}
+        </div>
+        <button class="w3-button w3-lime w3-hover-text-white w3-block  w3-left-align accordion-btn">
+            Reviewers
+        </button>
+        <div class="w3-container w3-hide">
+            {% for item in users.1 %}
+                <div class="w3-container w3-card w3-margin">
+                    {{ item.nickname }}
+                    <form method="post" action="" class="w3-right w3-mobile">
+                        <input type="hidden" name="action" value="change-role">
+                        <input type="hidden" name="user" value="{{ item.users_id }}">
+                        <input type="submit" name="promoteToAdmin" value="&uArr; promote" class="w3-button w3-lime w3-hover-text-white w3-mobile"/>
+                        <input type="submit" name="demoteToUser" value="&dArr; demote" class="w3-button w3-lime w3-hover-text-white w3-mobile"/>
+                        <input type="submit" name="deleteUser" value="&cross; delete" class="w3-button w3-lime w3-hover-text-white w3-text-red w3-mobile"/>
+                    </form>
+                </div>
+            {% else %}
+                Sorry, nothing to put here :(
+            {% endfor %}
+        </div>
+    </div>
+</main>

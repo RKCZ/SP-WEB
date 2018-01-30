@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>{{ page_title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="frameworks/w3.css">
+    <link rel="stylesheet" href="styles/rating.css">
+    <script src="frameworks/ckeditor/ckeditor.js"></script>
+    <script src="frameworks/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.min.js"></script>
+    <script src="controllers/control_handlers.js"></script>
+</head>
+<body>
+{% if error_msg %}
+    {% if 'ERROR' in error_msg %}
+        <div class="w3-red w3-display-container ">
+            <span onclick="this.parentElement.style.display='none'"
+                  class="w3-button w3-lime w3-hover-text-white w3-lime w3-hover-text-white w3-red w3-display-topright">&times;</span>
+            <h3>&nbsp;</h3>
+            {{ error_msg }}
+        </div>
+    {% elseif 'WARNING' in error_msg %}
+        <div class="w3-yellow w3-display-container ">
+          <span onclick="this.parentElement.style.display='none'"
+                class="w3-button w3-lime w3-hover-text-white w3-lime w3-hover-text-white w3-yellow w3-display-topright">&times;</span>
+            <h3>&nbsp;</h3>
+            {{ error_msg }}
+        </div>
+    {% else %}
+        <div class="w3-green w3-display-container ">
+          <span onclick="this.parentElement.style.display='none'"
+                class="w3-button w3-lime w3-hover-text-white w3-lime w3-hover-text-white  w3-display-topright">&times;</span>
+            <h3>&nbsp;</h3>
+            {{ error_msg }}
+        </div>
+    {% endif %}
+{% endif %}
+<div class="w3-modal w3-animate-zoom" id="modal">{% include 'modal.twig' %}</div>
+<div class=" w3-container w3-amber w3-large w3-center">
+    {{ site_logo }}
+    {% if login_info %}
+        <span class="w3-small w3-right w3-mobile ">
+            {% if login_info.role == 0 %}
+                [user]
+            {% elseif login_info.role == 1 %}
+                [reviewer]
+            {% else %}
+                [admin]
+            {% endif %}
+            {{ login_info.nickname }}
+        </span>
+    {% endif %}
+</div>
+<div class="w3-container w3-bar w3-amber">
+    <nav>
+        {% for item in top_nav %}
+            <button class="w3-mobile w3-button w3-lime w3-hover-text-white w3-lime w3-hover-text-white w3-bar-item {{ item.class }}">{{ item.caption }}</button>
+        {% endfor %}
+        {% if not login_info %}
+            <button class="w3-right w3-mobile w3-bar-item w3-button w3-lime w3-hover-text-white w3-lime w3-hover-text-white show-login">Sign in</button>
+            <button class="w3-right w3-mobile w3-bar-item w3-button w3-lime w3-hover-text-white w3-lime w3-hover-text-white show-reg">Sign up</button>
+        {% else %}
+            <form method="post" action="">
+                <input type="hidden" name="action" value="logout">
+                <button class="w3-right w3-mobile w3-button w3-lime w3-hover-text-white w3-lime w3-hover-text-white w3-bar-item" type="submit">Sign out</button>
+            </form>
+        {% endif %}
+    </nav>
+</div>
+
+{% include 'main.twig' %}
+
+<footer class="w3-container w3-amber w3-center">
+    &lt;&gt; &copy; Roman Kalivoda 2017 &lt;/&gt;
+</footer>
+<pre style="overflow-style: auto; overflow: hidden">
+    {{ dump() }}
+</pre>
+</body>
+</html>

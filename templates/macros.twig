@@ -1,0 +1,142 @@
+{% macro user_articles(group) %}
+    <div class="w3-container">
+        {% for item in group %}
+            <div class="w3-card w3-margin w3-white">
+                <button class="w3-button w3-lime w3-hover-text-white w3-lime w3-hover-text-white w3-block  w3-left-align toggle-btn">
+                    abstract&hellip;
+                </button>
+                <div style="word-wrap: break-word;" class="w3-container" hidden>{{ item.abstract|raw }}</div>
+                {% if item.1 == 4 or item.1 == 0 %}
+                    <table>
+                        <tr><td>
+                                artistic value:
+                            </td>
+                            <td>
+                                {% for i in 1..item.6|round %}
+                                    &starf;
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        <tr><td>
+                                grammar:
+                            </td>
+                            <td>
+                                {% for i in 1..item.7|round %}
+                                    &starf;
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        <tr><td>
+                                theme:
+                            </td>
+                            <td>
+                                {% for i in 1..item.8|round %}
+                                    &starf;
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        <tr><td>reviewed by: {{ item.5 }}</td></tr>
+                    </table>
+                {% endif %}
+                <footer class="w3-bar">
+                    {% if item.1 > 0 %}
+                        <button data-abstract="{{ item.abstract }}" data-id="{{ item.articles_id }}" class="w3-bar-item w3-mobile w3-button w3-lime w3-hover-text-white w3-lime w3-hover-text-white  edit_article">Edit Post</button>
+                    {% endif %}
+                    <a class="w3-bar-item w3-mobile w3-button w3-lime w3-hover-text-white w3-lime w3-hover-text-white " href="/uploads/{{ item.content }}">View PDF</a>
+                    <form method="post" action="">
+                        <button class="w3-bar-item w3-button w3-lime w3-hover-text-white  w3-right w3-mobile" type="submit">Delete</button>
+                        <input type="hidden" name="action" value="postDelete">
+                        <input type="hidden" name="article" value="{{ item.articles_id }}">
+                    </form>
+                </footer>
+            </div>
+        {% else %}
+            Sorry, nothing to put here :(
+        {% endfor %}
+    </div>
+{% endmacro user_articles %}
+
+{% macro admin_articles(group) %}
+    <div class="w3-container">
+        {% for item in group %}
+            <div class="w3-card w3-margin w3-white">
+                <button class="w3-button w3-lime w3-hover-text-white w3-block w3-left-align toggle-btn">
+                    abstract&hellip;
+                </button>
+                <div style="word-wrap: break-word;" class="w3-container" hidden>{{ item.abstract|raw }}</div>
+                <table>
+                    <tr><td>
+                            artistic value:
+                        </td>
+                        <td>
+                            {% for i in 1..item.6|round %}
+                                &starf;
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr><td>
+                            grammar:
+                        </td>
+                        <td>
+                            {% for i in 1..item.7|round %}
+                                &starf;
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr><td>
+                            theme:
+                        </td>
+                        <td>
+                            {% for i in 1..item.8|round %}
+                                &starf;
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr><td>reviewed by: {{ item.5 }}</td></tr>
+                </table>
+                <div>author: {{ item.author_FK }}</div>
+                <footer class="w3-bar">
+                    <a class="w3-bar-item w3-mobile w3-button w3-lime w3-hover-text-white " href="/uploads/{{ item.content }}">View PDF</a>
+                    {% if item.1 > 0 and item.1 < 4 %}
+                        <button data-id="{{ item.articles_id }}" class="w3-mobile w3-bar-item w3-button w3-lime w3-hover-text-white  assign-review">Assign reviewer</button>
+                    {% endif %}
+                    {% if item.1 == 3 %}
+                        <form method="post" action="">
+                            <input type="hidden" name="action" value="postAccept">
+                            <input type="hidden" name="article" value="{{ item.articles_id }}">
+                            <button class="w3-right w3-mobile w3-bar-item w3-button w3-lime w3-hover-text-white " type="submit">Accept</button>
+                        </form>
+                        <form method="post" action="">
+                            <input type="hidden" name="action" value="postReject">
+                            <input type="hidden" name="article" value="{{ item.articles_id }}">
+                            <button class="w3-right w3-mobile w3-bar-item w3-button w3-lime w3-hover-text-white" type="submit">Reject</button>
+                        </form>
+                    {% endif %}
+                </footer>
+            </div>
+        {% else %}
+            Sorry, nothing to put here :(
+        {% endfor %}
+    </div>
+{% endmacro admin_articles %}
+
+{% macro reviewer_articles(group) %}
+    <div class="w3-container">
+        {% for item in group %}
+            <div class="w3-card w3-margin w3-white">
+                <button class="w3-button w3-lime w3-hover-text-white w3-block  w3-left-align toggle-btn">
+                    abstract&hellip;
+                </button>
+                <div style="word-wrap: break-word;" class="w3-container" hidden>{{ item.abstract|raw }}</div>
+                status: {{ item.status }}
+                author: {{ item.author_FK }}
+                <footer class="w3-bar">
+                    <button data-id="{{ item.articles_id }}" class="w3-bar-item w3-mobile w3-button w3-lime w3-hover-text-white  review">Review</button>
+                    <a class="w3-bar-item w3-mobile w3-button w3-lime w3-hover-text-white " href="/uploads/{{ item.content }}">View PDF</a>
+                </footer>
+            </div>
+        {% else %}
+            Sorry, nothing to put here :(
+        {% endfor %}
+    </div>
+{% endmacro reviewer_articles %}

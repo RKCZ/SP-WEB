@@ -6,7 +6,7 @@
  * Time: 11:56
  */
 
-include_once "models/db.php";
+include_once ROOT . "/models/db.php";
 
 class user_control {
 
@@ -65,14 +65,14 @@ class user_control {
     }
 
     public function logUser() {
-        $valid = db::selectOne("SELECT users_id, role FROM users WHERE nickname = ? AND password = sha1(?)", array($_POST['nickname'], $_POST['password']));
+        $valid = db::selectOne("SELECT users_id, role FROM users WHERE nickname = ? AND password = sha1(?)", array(strtolower($_POST['nickname']), $_POST['password']));
         if($valid) {
             $this->setUserId($valid['users_id']);
             $this->setUserNick($_POST['nickname']);
             $this->setUserRole($valid['role']);
             return "";
         } else {
-            return "login or password is incorrect!";
+            return "WARNING: login or password is incorrect!";
         }
     }
 
@@ -81,7 +81,7 @@ class user_control {
     }
 
     public function userExists($nickname) {
-        $exists = db::selectAll("SELECT users_id FROM users WHERE nickname = ? LIMIT 1", array($nickname));
+        $exists = db::selectAll("SELECT users_id FROM users WHERE nickname = ? LIMIT 1", array(strtolower($nickname)));
         if($exists) {
             return true;
         } else {
@@ -91,10 +91,10 @@ class user_control {
 
     public function registerUser() {
         if(!$this->userExists($_POST["nickname"])) {
-            db::insert('users', array('nickname' => $_POST['nickname'],'password' => sha1($_POST['password']),'email' => $_POST['email']));
+            db::insert('users', array('nickname' => strtolower($_POST['nickname']),'password' => sha1($_POST['password']),'email' => $_POST['email']));
             return "Excellent, your account was created! You can log in now :-)";
         } else {
-            return "this nickname is already in use!";
+            return "WARNING: This nickname is already in use!";
         }
     }
 

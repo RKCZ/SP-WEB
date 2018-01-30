@@ -1,0 +1,35 @@
+div.stars {
+    overflow: hidden;
+}
+
+input.star { display: none; }
+
+label.star {
+    float: right;
+}
+
+input.star:checked ~ label.star:before {
+    content: '\2605';
+    color: gold;
+}
+
+label.star:hover ~ label.star::before {
+    content: '\2606';
+    color: gold;
+}
+
+/* added */
+label.star:hover::before {
+    content: '\2606';
+    color: gold;
+}
+
+label.star:before {
+    content: '\2605';
+    color: black;
+}
+
+input[type=file] {
+    text-overflow: ellipsis;
+    width: 200px;
+}

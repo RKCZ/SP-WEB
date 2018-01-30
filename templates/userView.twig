@@ -1,0 +1,30 @@
+{% import 'macros.twig' as macros %}
+
+<button class="w3-button w3-lime w3-hover-text-white create_article">Add Post</button>
+
+<div class="w3-margin-top w3-margin-bottom">
+   <button class="w3-button w3-lime w3-hover-text-white w3-block  w3-left-align accordion-btn">
+      Accepted
+   </button>
+   <div class="w3-container w3-hide">
+       {{ macros.user_articles(content.2) }}
+   </div>
+
+   <button class="w3-button w3-lime w3-hover-text-white w3-block  w3-left-align accordion-btn">
+      Pending
+   </button>
+   <div class="w3-container w3-hide">
+       {{ macros.user_articles(content.0) }}
+   </div>
+
+   <button class="w3-button w3-lime w3-hover-text-white w3-block  w3-left-align accordion-btn">
+      Rejected
+   </button>
+   <div class="w3-container w3-hide">
+       {{ macros.user_articles(content.1) }}
+   </div>
+</div>
+<script>
+    CKEDITOR.replace('editor_create');
+    CKEDITOR.replace('editor_edit');
+</script>
